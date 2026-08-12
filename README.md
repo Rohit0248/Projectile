@@ -1,14 +1,12 @@
-# Projectile Lab — Android
+# Projectile Lab Android
 
-A touch-friendly secondary-school projectile-motion teaching app.
+This is the corrected Android Studio/Gradle project for the Projectile Lab app.
 
-## Build on GitHub
+## Build with GitHub Actions
 
-1. Upload the **contents of this project folder** to the root of your GitHub repository. The repository root must contain `gradlew`, `gradlew.bat`, `app/`, `gradle/`, `build.gradle`, and `settings.gradle`.
-2. Push to `main`/`master`, or open **Actions → Build APK → Run workflow**.
-3. When the workflow finishes, download the artifact named **projectile-lab-release**.
-4. Inside the downloaded artifact is `app-release.apk`.
+1. Put the contents of this folder at the root of your GitHub repository.
+2. Open **Actions** and run **Build APK**.
+3. Download the `projectile-lab-release` artifact from the successful workflow.
+4. Extract `app-release.apk` and install it on Android.
 
-## Important
-
-This repository includes a lightweight `gradlew` launcher that delegates to the pinned Gradle installation provisioned by GitHub Actions. It is intentionally self-contained for the CI workflow and avoids requiring a pre-generated binary Gradle wrapper JAR in the source archive.
+The release build uses the standard Android debug signing configuration so the generated APK is directly installable for classroom/testing use. It is not a Play Store release signing key.
