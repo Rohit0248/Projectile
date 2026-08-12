@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#1565c0">
+<title>Projectile Lab</title>
+<style>
+:root{--blue:#1565c0;--blue2:#0d47a1;--ink:#17202a;--muted:#607080;--panel:#ffffff;--bg:#eef3f8;--green:#2e7d32;--red:#c62828;--gold:#f9a825;--line:#d8e0e8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}button,input,select{font:inherit}button{cursor:pointer;border:0}.app{height:100%;display:flex;flex-direction:column}.topbar{height:54px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;display:flex;align-items:center;padding:0 14px;gap:12px;flex:0 0 auto}.brand{font-weight:800;font-size:19px;letter-spacing:.2px;white-space:nowrap}.subtitle{font-size:12px;opacity:.85;white-space:nowrap}.top-actions{margin-left:auto;display:flex;gap:7px}.top-btn{background:rgba(255,255,255,.16);color:#fff;padding:8px 11px;border-radius:10px;font-weight:700;font-size:12px}.content{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:10px;padding:10px}.stage-panel{position:relative;background:#dcecfb;border:1px solid #c8d9e8;border-radius:14px;overflow:hidden;min-height:0}.stage{width:100%;height:100%;display:block;touch-action:none}.stage-help{position:absolute;left:12px;top:10px;background:rgba(255,255,255,.92);border-radius:12px;padding:8px 10px;font-size:12px;box-shadow:0 3px 12px rgba(30,60,90,.12);max-width:290px}.legend{position:absolute;right:12px;top:10px;background:rgba(255,255,255,.92);border-radius:12px;padding:8px 10px;font-size:11px;box-shadow:0 3px 12px rgba(30,60,90,.12)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}.side{min-height:0;overflow:auto;display:flex;flex-direction:column;gap:9px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px 12px;box-shadow:0 2px 8px rgba(23,32,42,.05)}.card h3{margin:0 0 8px;font-size:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.field input[type=number],.field select{width:100%;border:1px solid var(--line);border-radius:9px;padding:8px;background:#fbfdff;color:var(--ink)}.range-row{display:grid;grid-template-columns:1fr 64px;gap:8px;align-items:center;margin:7px 0}.range-row input[type=range]{width:100%;accent-color:var(--blue)}.value{font-weight:800;text-align:center;background:#f3f7fb;border:1px solid var(--line);border-radius:8px;padding:6px;font-size:12px}.btnrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.primary{background:var(--blue);color:#fff;padding:10px;border-radius:10px;font-weight:800}.secondary{background:#e9f0f7;color:var(--blue2);padding:10px;border-radius:10px;font-weight:800}.danger{background:#ffebee;color:var(--red);padding:9px;border-radius:10px;font-weight:800}.toggles{display:grid;grid-template-columns:1fr 1fr;gap:7px}.toggle{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:9px;background:#f5f8fb;font-size:12px}.toggle input{accent-color:var(--blue)}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.stat{background:#f5f8fb;border:1px solid var(--line);border-radius:10px;padding:7px;text-align:center}.stat .n{font-weight:800;font-size:15px}.stat .l{font-size:10px;color:var(--muted);margin-top:2px}.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.tab{padding:8px;border-radius:9px;background:#f3f6f9;color:#526270;font-size:12px;font-weight:800}.tab.on{background:#dbeafe;color:var(--blue2)}.mode-pane{display:none}.mode-pane.on{display:block}.hint{font-size:11px;color:var(--muted);line-height:1.35}.demo-card{background:linear-gradient(135deg,#f4fbff,#f7f4ff);border:1px solid #d9e4f0}.demo-title{font-weight:800;font-size:13px;margin-bottom:4px}.demo-body{font-size:11px;line-height:1.35;color:#4d5d6b}.demo-actions{display:flex;gap:6px;margin-top:8px}.smallbtn{padding:7px 8px;border-radius:8px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:700;color:var(--blue2)}.challenge{background:#fff8e1;border-color:#ffe082}.score{font-size:22px;font-weight:900;color:#8d6e00}.targetread{font-weight:800;color:var(--green)}.footer{font-size:9px;color:#7a8794;padding:0 12px 4px;text-align:center}
+@media(max-width:900px){.content{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.side{max-height:44vh}.stage-help{max-width:220px}.subtitle{display:none}}
+@media(max-width:600px){.topbar{height:48px;padding:0 8px}.brand{font-size:16px}.top-btn{padding:7px 8px}.content{padding:6px;gap:6px}.stage-help,.legend{display:none}.side{max-height:47vh}.card{padding:9px}.stats{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">Projectile Lab</div><div class="subtitle">Learn by launching • predicting • testing</div>
+    <div class="top-actions"><button class="top-btn" id="demoBtn">▶ Demo</button><button class="top-btn" id="learnBtn">💡 Why?</button></div>
+  </div>
+  <div class="content">
+    <div class="stage-panel">
+      <canvas id="stage" class="stage"></canvas>
+      <div class="stage-help" id="stageHelp">Tip: drag from the cannon to aim. Longer drag = faster launch.</div>
+      <div class="legend"><span class="dot" style="background:#1565c0"></span>velocity <span class="dot" style="background:#c62828;margin-left:8px"></span>acceleration</div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <div class="tabs"><button class="tab on" data-tab="explore">Explore</button><button class="tab" data-tab="challenge">Challenge</button><button class="tab" data-tab="learn">Learn</button></div>
+        <div id="explore" class="mode-pane on">
+          <div class="grid2" style="margin-top:8px">
+            <div class="field"><label>Projectile</label><select id="object"><option value="cannonball">Cannonball</option><option value="pumpkin">Pumpkin</option><option value="football">Football</option><option value="golf">Golf ball</option></select></div>
+            <div class="field"><label>Gravity</label><select id="gravity"><option value="earth">Earth • 9.81 m/s²</option><option value="moon">Moon • 1.62 m/s²</option><option value="mars">Mars • 3.71 m/s²</option></select></div>
+          </div>
+          <div class="range-row"><div><label style="font-size:11px;color:#607080">Angle</label><input id="angle" type="range" min="0" max="85" step="1" value="35"></div><div class="value" id="angleV">35°</div></div>
+          <div class="range-row"><div><label style="font-size:11px;color:#607080">Initial speed</label><input id="speed" type="range" min="0" max="50" step="1" value="20"></div><div class="value" id="speedV">20 m/s</div></div>
+          <div class="range-row"><div><label style="font-size:11px;color:#607080">Launch height</label><input id="height" type="range" min="0" max="25" step="0.5" value="5"></div><div class="value" id="heightV">5 m</div></div>
+          <div class="range-row"><div><label style="font-size:11px;color:#607080">Target distance</label><input id="target" type="range" min="5" max="80" step="1" value="30"></div><div class="value" id="targetV">30 m</div></div>
+          <div class="toggles" style="margin-top:5px">
+            <label class="toggle"><input type="checkbox" id="air"> Air resistance</label><label class="toggle"><input type="checkbox" id="vectors"> Velocity vectors</label>
+            <label class="toggle"><input type="checkbox" id="accel"> Acceleration</label><label class="toggle"><input type="checkbox" id="ideal" checked> Ideal path</label>
+          </div>
+          <div class="btnrow" style="margin-top:8px"><button class="primary" id="fire">🚀 FIRE</button><button class="secondary" id="pause">⏸ Pause</button></div>
+          <button class="danger" id="reset" style="width:100%;margin-top:7px">↺ Reset</button>
+        </div>
+        <div id="challenge" class="mode-pane">
+          <div class="challenge card" style="padding:9px;margin-top:8px"><div class="score" id="score">0 pts</div><div style="font-size:12px;font-weight:800;margin-top:2px">Hit the target!</div><div class="hint" id="mission">Set the launch conditions and fire.</div></div>
+          <div class="stats" style="margin-top:8px"><div class="stat"><div class="n" id="tries">0</div><div class="l">tries</div></div><div class="stat"><div class="n" id="hits">0</div><div class="l">hits</div></div><div class="stat"><div class="n" id="streak">0</div><div class="l">streak</div></div></div>
+          <button class="secondary" id="newChallenge" style="width:100%;margin-top:8px">🎯 New target</button>
+        </div>
+        <div id="learn" class="mode-pane">
+          <div class="demo-card card" style="padding:9px;margin-top:8px"><div class="demo-title">1. Why is 45° special?</div><div class="demo-body">For equal launch and landing heights without drag, 45° gives the greatest range. Try 20°, 45°, then 70°.</div><div class="demo-actions"><button class="smallbtn" data-demo="range">Show me</button></div></div>
+          <div class="demo-card card" style="padding:9px;margin-top:7px"><div class="demo-title">2. Independent x and y motion</div><div class="demo-body">Gravity changes vertical velocity, but not horizontal velocity when air resistance is off. Watch the vectors.</div><div class="demo-actions"><button class="smallbtn" data-demo="components">Show me</button></div></div>
+          <div class="demo-card card" style="padding:9px;margin-top:7px"><div class="demo-title">3. What does air resistance do?</div><div class="demo-body">Turn drag on and compare the ideal path with the real path. Faster, larger objects lose more energy to drag.</div><div class="demo-actions"><button class="smallbtn" data-demo="drag">Show me</button></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What happened?</h3>
+        <div class="stats"><div class="stat"><div class="n" id="rangeN">—</div><div class="l">range</div></div><div class="stat"><div class="n" id="maxN">—</div><div class="l">max height</div></div><div class="stat"><div class="n" id="timeN">—</div><div class="l">flight time</div></div></div>
+        <div class="stats" style="margin-top:6px"><div class="stat"><div class="n" id="vxN">—</div><div class="l">vx at launch</div></div><div class="stat"><div class="n" id="vyN">—</div><div class="l">vy at launch</div></div><div class="stat"><div class="n" id="landingN">—</div><div class="l">landing x</div></div></div>
+      </div>
+      <div class="card" id="explainCard"><h3 id="whyTitle">Physics in one line</h3><div class="hint" id="whyText">Horizontal motion and vertical motion happen at the same time. Gravity acts downward, so the path curves.</div></div>
+      <div class="footer">Original educational app. Inspired by the learning goals of PhET Projectile Motion. Reference: PhET Interactive Simulations, University of Colorado Boulder, https://phet.colorado.edu.</div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const canvas=$('stage'), ctx=canvas.getContext('2d');
+const state={angle:35,speed:20,height:5,target:30,g:9.81,air:false,vectors:false,accel:false,ideal:true,object:'cannonball',running:false,paused:false,t:0,x:0,y:5,vx:0,vy:0,trail:[],path:[],metrics:null,score:0,tries:0,hits:0,streak:0,challengeTarget:30,dragActive:false,lastTs:0,toast:''};
+const obj={cannonball:{mass:2.5,diam:0.22,emoji:'⚫'},pumpkin:{mass:4,diam:.36,emoji:'🎃'},football:{mass:.43,diam:.22,emoji:'🏈'},golf:{mass:.046,diam:.043,emoji:'⚪'}};
+const gravityMap={earth:9.81,moon:1.62,mars:3.71};
+function sync(){ $('angleV').textContent=state.angle+'°'; $('speedV').textContent=state.speed+' m/s'; $('heightV').textContent=state.height.toFixed(1).replace('.0','')+' m'; $('targetV').textContent=state.target+' m'; }
+['angle','speed','height','target'].forEach(id=>$(id).addEventListener('input',()=>{state[id]=+$(id).value; resetSim(false); sync();}));
+$('gravity').addEventListener('change',()=>{state.g=gravityMap[$('gravity').value];resetSim(false);});
+$('air').addEventListener('change',()=>{state.air=$('air').checked;resetSim(false);});
+$('vectors').addEventListener('change',()=>{state.vectors=$('vectors').checked;draw();});
+$('accel').addEventListener('change',()=>{state.accel=$('accel').checked;draw();});
+$('ideal').addEventListener('change',()=>{state.ideal=$('ideal').checked;draw();});
+$('object').addEventListener('change',()=>{state.object=$('object').value;resetSim(false);});
+$('fire').addEventListener('click',()=>launch());
+$('pause').addEventListener('click',()=>{state.paused=!state.paused;$('pause').textContent=state.paused?'▶ Resume':'⏸ Pause';});
+$('reset').addEventListener('click',()=>resetSim(true));
+$('demoBtn').addEventListener('click',()=>runDemo('range'));
+$('learnBtn').addEventListener('click',()=>{document.querySelector('[data-tab="learn"]').click();});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.mode-pane').forEach(x=>x.classList.remove('on'));b.classList.add('on');$(b.dataset.tab).classList.add('on');}));
+document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>runDemo(b.dataset.demo)));
+$('newChallenge').addEventListener('click',newChallenge);
+function resize(){const r=canvas.parentElement.getBoundingClientRect();const d=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));canvas.style.width=r.width+'px';canvas.style.height=r.height+'px';ctx.setTransform(d,0,0,d,0,0);draw();}
+window.addEventListener('resize',resize); new ResizeObserver(resize).observe(canvas.parentElement);
+function idealMetrics(){const th=state.angle*Math.PI/180;const vx=state.speed*Math.cos(th),vy=state.speed*Math.sin(th);const disc=vy*vy+2*state.g*state.height;const T=(vy+Math.sqrt(Math.max(0,disc)))/state.g;const R=vx*T;const H=state.height+vy*vy/(2*state.g);return {vx,vy,T,R,H};}
+function integrateToGround(){const o=obj[state.object],rho=1.225;const dt=.0025;let x=0,y=state.height,th=state.angle*Math.PI/180,vx=state.speed*Math.cos(th),vy=state.speed*Math.sin(th),t=0,maxY=y,pts=[];const k=state.air?0.5*rho*(Math.PI*(o.diam*.5)**2)*0.5/o.mass:0;
+ if(!state.air){const m=idealMetrics();for(let tt=0;tt<=m.T;tt+=m.T/80)pts.push({t:tt,x:m.vx*tt,y:state.height+m.vy*tt-.5*state.g*tt*tt});return {...m,pts};}
+ let prev={x,y,t};for(let i=0;i<40000&&y>=0&&t<20;i++){const s=Math.hypot(vx,vy),ax=-k*s*vx,ay=-state.g-k*s*vy;vx+=ax*dt;vy+=ay*dt;x+=vx*dt;y+=vy*dt;t+=dt;if(y>maxY)maxY=y;if(i%16===0)pts.push({t,x,y});if(y<0){const f=prev.y/(prev.y-y);const ti=prev.t+(t-prev.t)*f;const xi=prev.x+(x-prev.x)*f;pts.push({t:ti,x:xi,y:0});return {vx0:state.speed*Math.cos(th),vy0:state.speed*Math.sin(th),vx,vy,T:ti,R:xi,H:maxY,pts};}prev={x,y,t};}
+ return {vx0:state.speed*Math.cos(th),vy0:state.speed*Math.sin(th),vx,vy,T:t,R:x,H:maxY,pts};
+}
+function launch(){if(state.running)return;state.running=true;state.paused=false;state.t=0;state.x=0;state.y=state.height;const th=state.angle*Math.PI/180;state.vx=state.speed*Math.cos(th);state.vy=state.speed*Math.sin(th);state.trail=[];state.path=state.metrics?state.metrics.pts:[];state.metrics=integrateToGround();state.tries++;$('tries').textContent=state.tries; $('pause').textContent='⏸ Pause';}
+function resetSim(hard){state.running=false;state.paused=false;state.t=0;state.x=0;state.y=state.height;state.trail=[];state.metrics=integrateToGround();state.path=state.metrics.pts;$('pause').textContent='⏸ Pause';updateStats(state.metrics);draw();if(hard){state.score=0;state.tries=0;state.hits=0;state.streak=0;['score','tries','hits','streak'].forEach(id=>$(id).textContent=id==='score'?'0 pts':'0');}}
+function finish(){state.running=false;const m=state.metrics;const hit=Math.abs(m.R-state.target)<1.4;state.x=m.R;state.y=0;state.trail.push({x:state.x,y:0});if(document.querySelector('.tab.on').dataset.tab==='challenge'){if(hit){state.hits++;state.streak++;state.score+=100+Math.max(0,Math.round(50-Math.abs(m.R-state.target)*30));$('mission').innerHTML='<span class="targetread">Hit! Great prediction.</span>'; }else{state.streak=0;$('mission').textContent='Missed. Adjust one variable and try again.'}$('hits').textContent=state.hits;$('streak').textContent=state.streak;$('score').textContent=state.score+' pts';}}
+function updateStats(m){$('rangeN').textContent=m.R.toFixed(1)+' m';$('maxN').textContent=m.H.toFixed(1)+' m';$('timeN').textContent=m.T.toFixed(2)+' s';$('vxN').textContent=(m.vx0??m.vx??idealMetrics().vx).toFixed(1)+' m/s';$('vyN').textContent=(m.vy0??m.vy??idealMetrics().vy).toFixed(1)+' m/s';$('landingN').textContent=(m.R??0).toFixed(1)+' m';}
+function runDemo(type){document.querySelector('[data-tab="learn"]').click(); if(type==='range'){state.angle=45;state.speed=20;state.height=0;state.air=false;$('angle').value=45;$('speed').value=20;$('height').value=0;$('air').checked=false;sync();resetSim(false);$('whyTitle').textContent='Demo: 45° gives the longest range';$('whyText').textContent='With the same launch and landing height and no air resistance, sin(2θ) is largest at θ = 45°. Fire to see it.';} else if(type==='components'){state.angle=35;state.speed=20;state.height=3;state.air=false;$('angle').value=35;$('speed').value=20;$('height').value=3;$('air').checked=false;$('vectors').checked=true;state.vectors=true;sync();resetSim(false);$('whyTitle').textContent='Demo: x and y motion are independent';$('whyText').textContent='With no air resistance, vx stays constant while vy changes by −g each second. Gravity acts vertically, not horizontally.';} else {state.angle=40;state.speed=28;state.height=5;state.air=true;$('angle').value=40;$('speed').value=28;$('height').value=5;$('air').checked=true;sync();resetSim(false);$('whyTitle').textContent='Demo: drag bends the real path';$('whyText').textContent='Air resistance opposes motion. The projectile loses speed, so its actual range falls below the ideal prediction.';}}
+function newChallenge(){state.target=Math.round(10+Math.random()*55);$('target').value=state.target;state.angle=Math.round(15+Math.random()*60);$('angle').value=state.angle;state.speed=Math.round(12+Math.random()*28);$('speed').value=state.speed;state.height=Math.round(Math.random()*10*2)/2;$('height').value=state.height;state.air=Math.random()<.35;$('air').checked=state.air;sync();resetSim(false);$('mission').textContent='Target at '+state.target+' m. Predict, then FIRE!';document.querySelector('[data-tab="challenge"]').click();}
+function worldToScreen(x,y){const w=canvas.clientWidth,h=canvas.clientHeight;const maxX=Math.max(state.target+8,(state.metrics?.R||40)+8);const maxY=Math.max(18,(state.metrics?.H||20)+4);const padL=52,padB=42,padT=28,padR=22;const sx=(w-padL-padR)/maxX,sy=(h-padT-padB)/maxY;const s=Math.min(sx,sy);return {x:padL+x*s,y:h-padB-y*s,s};}
+function draw(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;ctx.clearRect(0,0,w,h);const m=state.metrics||integrateToGround();const maxX=Math.max(state.target+8,(m.R||40)+8);const maxY=Math.max(18,(m.H||20)+4);const padL=52,padB=42,padT=28,padR=22;const s=Math.min((w-padL-padR)/maxX,(h-padT-padB)/maxY);const X=x=>padL+x*s,Y=y=>h-padB-y*s;
+ let grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#bfe3ff');grad.addColorStop(1,'#eef7ff');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+ ctx.strokeStyle='rgba(70,100,130,.15)';ctx.lineWidth=1;for(let gx=0;gx<=maxX;gx+=5){ctx.beginPath();ctx.moveTo(X(gx),padT);ctx.lineTo(X(gx),h-padB);ctx.stroke();}for(let gy=0;gy<=maxY;gy+=5){ctx.beginPath();ctx.moveTo(padL,Y(gy));ctx.lineTo(w-padR,Y(gy));ctx.stroke();}
+ ctx.fillStyle='#87a65b';ctx.fillRect(padL,Y(0),w-padL-padR,padB);
+ ctx.fillStyle='#455a64';ctx.font='11px Arial';ctx.textAlign='center';for(let gx=0;gx<=maxX;gx+=5){ctx.fillText(gx+' m',X(gx),h-padB+20);}ctx.textAlign='right';for(let gy=5;gy<=maxY;gy+=5){ctx.fillText(gy+' m',padL-8,Y(gy)+4);}
+ // target
+ const ty=Y(0),tx=X(state.target);ctx.strokeStyle='#2e7d32';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(tx,ty-26);ctx.lineTo(tx,ty);ctx.stroke();ctx.fillStyle='#2e7d32';ctx.beginPath();ctx.arc(tx,ty-31,12,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 10px Arial';ctx.fillText('T',tx,ty-27);
+ // ideal path
+ if(state.ideal){ctx.strokeStyle='rgba(21,101,192,.25)';ctx.lineWidth=2;ctx.setLineDash([6,5]);ctx.beginPath();for(let i=0;i<m.pts.length;i++){const p=m.pts[i],q=worldToScreen(p.x,p.y);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);}ctx.stroke();ctx.setLineDash([]);}
+ // real trail
+ if(state.trail.length>1){ctx.strokeStyle='#1565c0';ctx.lineWidth=3;ctx.beginPath();state.trail.forEach((p,i)=>{const q=worldToScreen(p.x,p.y);i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)});ctx.stroke();}
+ // cannon
+ const cX=X(0),cY=Y(state.height);ctx.save();ctx.translate(cX,cY);ctx.rotate(-state.angle*Math.PI/180);ctx.fillStyle='#607d8b';ctx.fillRect(0,-8,52,16);ctx.restore();ctx.fillStyle='#37474f';ctx.beginPath();ctx.arc(cX,cY+6,13,0,Math.PI*2);ctx.fill();
+ // projectile
+ const p=worldToScreen(state.x,state.y);ctx.font=Math.max(16,Math.min(28,s*0.6))+'px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(obj[state.object].emoji,p.x,p.y);
+ // vectors
+ if(state.vectors && state.running){const scale=Math.max(.25,Math.min(1.1,s/3));drawArrow(p.x,p.y,p.x+state.vx*scale,p.y-state.vy*scale,'#1565c0');}
+ if(state.accel){drawArrow(cX+46*Math.cos(-state.angle*Math.PI/180),cY-46*Math.sin(state.angle*Math.PI/180),cX+46*Math.cos(-state.angle*Math.PI/180),cY+30,'#c62828');}
+ ctx.fillStyle='rgba(23,32,42,.75)';ctx.font='bold 11px Arial';ctx.textAlign='left';ctx.fillText('Drag → aim + speed',12,h-12);
+}
+function drawArrow(x1,y1,x2,y2,color){ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const a=Math.atan2(y2-y1,x2-x1),s=7;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-s*Math.cos(a-.5),y2-s*Math.sin(a-.5));ctx.lineTo(x2-s*Math.cos(a+.5),y2-s*Math.sin(a+.5));ctx.closePath();ctx.fill();}
+function pointerPos(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
+canvas.addEventListener('pointerdown',e=>{const q=pointerPos(e);const c=worldToScreen(0,state.height);if(Math.hypot(q.x-c.x,q.y-c.y)<70){canvas.setPointerCapture(e.pointerId);state.dragActive=true;aimByPointer(q);}});
+canvas.addEventListener('pointermove',e=>{if(state.dragActive)aimByPointer(pointerPos(e));});
+canvas.addEventListener('pointerup',()=>{state.dragActive=false;});
+function aimByPointer(q){const c=worldToScreen(0,state.height),dx=(q.x-c.x),dy=(c.y-q.y);if(dx<8)return;state.angle=Math.max(0,Math.min(85,Math.round(Math.atan2(dy,dx)*180/Math.PI)));const s=worldToScreen(1,0).s;state.speed=Math.max(0,Math.min(50,Math.round(Math.hypot(dx,dy)/Math.max(1,s))));$('angle').value=state.angle;$('speed').value=state.speed;sync();resetSim(false);}
+function tick(ts){if(!state.lastTs)state.lastTs=ts;const realDt=Math.min(.032,(ts-state.lastTs)/1000);state.lastTs=ts;if(state.running&&!state.paused){let dt=realDt;const m=obj[state.object],rho=1.225;const k=state.air?0.5*rho*(Math.PI*(m.diam*.5)**2)*0.5/m.mass:0;const sub=state.air?4:1;for(let j=0;j<sub;j++){const d=dt/sub;const speed=Math.hypot(state.vx,state.vy);const ax=-k*speed*state.vx,ay=-state.g-k*speed*state.vy;state.vx+=ax*d;state.vy+=ay*d;state.x+=state.vx*d;state.y+=state.vy*d;state.t+=d;if(state.y<0){state.y=0;finish();break;}}state.trail.push({x:state.x,y:Math.max(0,state.y)});if(state.trail.length>500)state.trail.shift();}updateLive();draw();requestAnimationFrame(tick);}
+function updateLive(){if(state.running){$('landingN').textContent=state.x.toFixed(1)+' m';}else if(state.metrics)updateStats(state.metrics);}
+state.metrics=integrateToGround();state.path=state.metrics.pts;sync();resize();requestAnimationFrame(tick);
+</script>
+</body>
+</html>
